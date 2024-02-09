@@ -1,3 +1,4 @@
+//complete
 #ifndef USER_H
 #define USER_H
 #include <iostream>
@@ -22,5 +23,6 @@ private:
     std::string name_;
     double balance_;
     int type_;
+
 };
 #endif

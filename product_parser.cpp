@@ -1,3 +1,4 @@
+//nearly complete 
 #include <iostream>
 #include <sstream>
 #include "product_parser.h"
@@ -130,13 +131,16 @@ std::string ProductBookParser::categoryID()
  */
 Product* ProductBookParser::makeProduct()
 {
-
+    Book* item = new Book(categoryID(), prodName_, price_, qty_, author_, isbn_); 
+    return item;  
 
 }
 
 
 ProductClothingParser::ProductClothingParser()
 {
+
+
 }
 
 Product* ProductClothingParser::parseSpecificProduct(std::string category,
@@ -186,7 +190,8 @@ std::string ProductClothingParser::categoryID()
 Product* ProductClothingParser::makeProduct()
 {
 
-
+    Clothing* item = new Clothing(categoryID(), prodName_, price_, qty_, size_, brand_); 
+    return item;  
 
 }
 
@@ -245,6 +250,8 @@ std::string ProductMovieParser::categoryID()
  */
 Product* ProductMovieParser::makeProduct()
 {
+    Movie* item = new Movie(categoryID(), prodName_, price_, qty_, genre_, rating_); 
+    return item; 
 
 
 }

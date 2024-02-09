@@ -1,3 +1,4 @@
+//Incomplete
 #include <iostream>
 #include <fstream>
 #include <set>
@@ -9,8 +10,10 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
 
 using namespace std;
+//product name sorter 
 struct ProdNameSorter {
     bool operator()(Product* p1, Product* p2) {
         return (p1->getName() < p2->getName());
@@ -29,7 +32,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -70,7 +73,7 @@ int main(int argc, char* argv[])
         stringstream ss(line);
         string cmd;
         if((ss >> cmd)) {
-            if( cmd == "AND") {
+            if(cmd == "AND") {
                 string term;
                 vector<string> terms;
                 while(ss >> term) {
@@ -90,6 +93,34 @@ int main(int argc, char* argv[])
                 hits = ds.search(terms, 1);
                 displayProducts(hits);
             }
+            else if ( cmd == "ADD" ) {
+                string username;
+                int hitNumber;
+                ss >> username >> hitNumber;
+                //hitIndex; 
+                ds.addProductToCart(username, hits[hitNumber-1]);
+                
+            }
+            else if ( cmd == "VIEWCART" ) {
+                string username;
+                if(ss >> username) {
+                    username = convToLower(username); 
+                    ds.viewCart(username); 
+                }
+                else { 
+                    cout << "Invalid Request" << endl; 
+                }
+            }
+            else if ( cmd == "BUY" ) {
+                string username;
+                if (ss >> username) {
+                    ds.buyCart(username); 
+                }
+                else {
+                    cout << "Invalid username" << endl; 
+                }
+                
+             }
             else if ( cmd == "QUIT") {
                 string filename;
                 if(ss >> filename) {

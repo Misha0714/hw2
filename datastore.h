@@ -5,6 +5,7 @@
 #include <vector>
 #include "product.h"
 #include "user.h"
+#include "util.h"
 
 /**
  * DataStore Interface needed for parsing and instantiating products and users

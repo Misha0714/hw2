@@ -105,6 +105,7 @@ bool DBParser::parse(string db_filename, DataStore& ds)
     }
     return error_;
 }
+//lo
 
 ProductSectionParser::ProductSectionParser()
 {
