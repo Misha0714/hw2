@@ -1,6 +1,8 @@
 #include "clothing.h"
 #include "util.h"
 #include "product.h"
+#include <sstream>
+#include <iomanip>
 
 //constructor 
 Clothing::Clothing(const std::string category, const std::string name, double price, 
@@ -21,21 +23,21 @@ Clothing::~Clothing()
 std::set<std::string> Clothing::keywords() const  {
     
         
-    std::set<std::string> sizeSet = parseStringToWords(size_);
+    std::set<std::string> brandSet = parseStringToWords(brand_);
     std::set<std::string> prodNameSet = parseStringToWords(name_);  
-    std::set<std::string> set; 
-    typename std::set<std::string>::iterator it; 
+    std::set<std::string> set = setUnion(brandSet,prodNameSet); 
+    // typename std::set<std::string>::iterator it; 
 
-    for(it=sizeSet.begin(); it!= sizeSet.end(); ++it) {
-        set.insert(*it); 
-    }
+    // // for(it=sizeSet.begin(); it!= sizeSet.end(); ++it) {
+    // //     set.insert(*it); 
+    // // }
 
 
-    for(it=prodNameSet.begin(); it!= prodNameSet.end(); ++it) {
-        set.insert(*it) ; 
-    }
+    // // for(it=prodNameSet.begin(); it!= prodNameSet.end(); ++it) {
+    // //     set.insert(*it) ; 
+    // // }
 
-    set.insert(brand_); 
+    set.insert(size_); 
 
     return set;
 } 
@@ -43,9 +45,14 @@ std::set<std::string> Clothing::keywords() const  {
 
 
 std::string Clothing::displayString() const {
+
+    std::stringstream ss; 
+    std::string setPrice; 
+    ss << std::setprecision(2) << std::fixed << price_;
+    ss >> setPrice;  
     
     std::string productDisplay =  name_ + "\n" + "Size: " + size_ + " Brand: " + brand_  + "\n"
-    + std::to_string(price_) + std::to_string(qty_) + " left."; 
+    + setPrice + " " + std::to_string(qty_) + " left."; 
 
     return productDisplay; 
 

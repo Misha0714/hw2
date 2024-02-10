@@ -1,6 +1,8 @@
 #include "movie.h"
 #include "util.h"
 #include "product.h"
+#include <sstream>
+#include <iomanip>
 
 //constructor 
 Movie::Movie(const std::string category, const std::string name, double price, 
@@ -19,33 +21,26 @@ Movie::~Movie()
 }
 
 std::set<std::string> Movie::keywords() const  {
-    
-        
-    std::set<std::string> genreSet = parseStringToWords(genre_);
-    std::set<std::string> prodNameSet = parseStringToWords(name_);  
-    std::set<std::string> set; 
-    typename std::set<std::string>::iterator it; 
-
-    for(it=genreSet.begin(); it!= genreSet.end(); ++it) {
-        set.insert(*it); 
-    }
-
-
-    for(it=prodNameSet.begin(); it!= prodNameSet.end(); ++it) {
-        set.insert(*it) ; 
-    }
-
-    set.insert(rating_); 
-
+    // if it's one char remove it    
+    std::set<std::string> set = parseStringToWords(name_);  
+    set.insert(convToLower(genre_));
+   
+  
     return set;
+    
 } 
      
 
 
 std::string Movie::displayString() const {
+
+    std::stringstream ss; 
+    std::string setPrice; 
+    ss << std::setprecision(2) << std::fixed << price_;
+    ss >> setPrice;
     
     std::string productDisplay =  name_ + "\n" + "Genre: " + genre_ + " Rating: " + rating_  + "\n"
-    + std::to_string(price_) + std::to_string(qty_) + " left."; 
+    + setPrice + " " + std::to_string(qty_) + " left."; 
 
     return productDisplay; 
 

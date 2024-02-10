@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
                 string term;
                 vector<string> terms;
                 while(ss >> term) {
-                    term = convToLower(term);
+                    term = convToLower(term); 
                     terms.push_back(term);
                 }
                 hits = ds.search(terms, 1);
@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
                     cout << "Invalid Request" << endl; 
                 }
             }
-            else if ( cmd == "BUY" ) {
+            else if ( cmd == "BUYCART" ) {
                 string username;
                 if (ss >> username) {
                     ds.buyCart(username); 

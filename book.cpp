@@ -1,10 +1,12 @@
 #include "book.h"
 #include "util.h"
 #include "product.h"
+#include <sstream>
+#include <iomanip>
 
 //constructor 
-Book::Book(const std::string category, const std::string name, double price, 
-int qty, const std::string author, const std::string isbn) : 
+Book::Book(std::string category, std::string name, double price, 
+int qty, std::string author, std::string isbn) : 
 Product(category, name, price, qty)
 {
     author_ = author; 
@@ -25,12 +27,12 @@ std::set<std::string> Book::keywords() const  {
     std::set<std::string> prodNameSet = parseStringToWords(convToLower(name_));  
     std::set<std::string> set; 
     typename std::set<std::string>::iterator it; 
-
+    //iterate through autjor set and insert the author string into there 
     for(it=authorSet.begin(); it!= authorSet.end(); ++it) {
         set.insert(*it); 
     }
 
-
+    //iterate through prodName set and insert the prdoName string into there 
     for(it=prodNameSet.begin(); it!= prodNameSet.end(); ++it) {
         set.insert(*it) ; 
     }
@@ -44,8 +46,13 @@ std::set<std::string> Book::keywords() const  {
 
 std::string Book::displayString() const {
     
-    std::string productDisplay =  name_ + "\n" + "Author: " + author_ + " ISBN: " + isbn_  + "\n"
-    + std::to_string(price_) + std::to_string(qty_) + " left."; 
+    std::stringstream ss; 
+    std::string setPrice; 
+    ss << std::setprecision(2) << std::fixed << price_;
+    ss >> setPrice;  
+
+    std::string productDisplay =  name_ + "\n" + "Author: " + author_ + " ISBN: " + isbn_  + "\n" +
+    setPrice + " " + std::to_string(qty_) + " left."; 
 
     return productDisplay; 
 
